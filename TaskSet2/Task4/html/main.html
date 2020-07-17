@@ -1,0 +1,929 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>main</title><meta name="generator" content="MATLAB 9.8"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-05-08"><meta name="DC.source" content="main.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Which game was the top scoring game?</a></li><li><a href="#3">How many unique teams has played games ?</a></li><li><a href="#4">Which team has scored the most goals?</a></li><li><a href="#5">Conceded the most goals?</a></li><li><a href="#6">Has the best goal differential (scored minus conceded)</a></li><li><a href="#7">Has the best goal ratio (scored divided by conceded)?</a></li><li><a href="#8">Which team has scored the most goals on average?</a></li><li><a href="#9">Conceded the most goals on average?</a></li><li><a href="#10">Do home teams have an advantage?</a></li><li><a href="#11">How many games ended as 0:0 draw?</a></li><li><a href="#12">In how many games one team has scored more than 3 goals?</a></li><li><a href="#13">In how many games loosing team has scored more than 3 goals?</a></li><li><a href="#14">Which teams have kept their place in the top division through out all seasons of this millennium ?</a></li><li><a href="#15">Plotting by Cumulative goals scored.</a></li><li><a href="#16">Plotting by Cumulative goals conceded</a></li><li><a href="#17">Plotting by Cumulative goal differential.</a></li><li><a href="#18">How would the last season&#8217;s final table change if we would use a different scoring method?</a></li></ul></div><pre class="codeinput"><span class="comment">% This program answers the questions for Task4 in ETS2</span>
+<span class="comment">% Author : Serhat Aydogdu</span>
+<span class="comment">% Task: 4</span>
+
+clear <span class="string">all</span>;
+
+
+allData = dataset(<span class="string">'xlsfile'</span>,<span class="string">'england.csv'</span>);
+<span class="comment">% Selecting the games after the year of 2000</span>
+data = allData(159429:198816,1:12);
+data.division = str2double(data.division);
+data.home = string(data.home);
+data.visitor = string(data.visitor);
+</pre><h2 id="2">Which game was the top scoring game?</h2><pre class="codeinput">maxgoal = max(data.totgoal); <span class="comment">% to see max total goals among all the games</span>
+<span class="comment">% max goal is 11</span>
+<span class="comment">% determine the place of the game that has 11 goals total</span>
+goalsTotal = maxgoal == data.totgoal;
+whichGame = find(goalsTotal,1,<span class="string">'first'</span>);
+disp(<span class="string">'Which game was the top scoring game?'</span>)
+fprintf(<span class="string">'%s vs %s in %d'</span>, data.home(whichGame),data.visitor(whichGame), data.Season(whichGame))
+data(whichGame,:);
+</pre><pre class="codeoutput">Which game was the top scoring game?
+Burnley vs Watford in 2002</pre><h2 id="3">How many unique teams has played games ?</h2><pre class="codeinput">totalTeams = max(findgroups(data.home))<span class="comment">% number of teams played;</span>
+fprintf(<span class="string">'%d teams played'</span>, totalTeams)
+</pre><pre class="codeoutput">
+totalTeams =
+
+   111
+
+111 teams played</pre><h2 id="4">Which team has scored the most goals?</h2><pre class="codeinput">data2 = data(:,{<span class="string">'home'</span>, <span class="string">'hgoal'</span>});
+hgoal = data2.hgoal;
+home = data2.home;
+[G ,ID] = findgroups(home);
+scoredGoal = splitapply(@sum, hgoal,G);
+seekformax = max(scoredGoal) == scoredGoal;
+teamID = find(seekformax, 1, <span class="string">'first'</span>)
+ID(teamID); <span class="comment">% the Team scored most goals</span>
+fprintf(<span class="string">'%s has scored the most goals'</span>, ID(teamID))
+</pre><pre class="codeoutput">
+teamID =
+
+     5
+
+Arsenal has scored the most goals</pre><h2 id="5">Conceded the most goals?</h2><pre class="codeinput">vgoal = data.vgoal;
+[G2 ID2] = findgroups(home);
+concGoalbyTeam = splitapply(@sum, vgoal,G);
+whichTeam = max(concGoalbyTeam) == splitapply(@sum, vgoal,G);
+teamID2 = find(whichTeam,1,<span class="string">'first'</span>);
+ID2(teamID2); <span class="comment">% the team conceded the most goals</span>
+fprintf(<span class="string">'%s conceded the most goals'</span>, ID2(teamID2))
+</pre><pre class="codeoutput">Crewe Alexandra conceded the most goals</pre><h2 id="6">Has the best goal differential (scored minus conceded)</h2><pre class="codeinput">goalDifferential = concGoalbyTeam - scoredGoal;
+whichTeam2 = max(goalDifferential) == goalDifferential;
+teamID3 = find(whichTeam2, 1, <span class="string">'first'</span>);
+ID(teamID3);
+fprintf(<span class="string">'%s has the best goal differential'</span>,ID(teamID3))
+</pre><pre class="codeoutput">Stockport County has the best goal differential</pre><h2 id="7">Has the best goal ratio (scored divided by conceded)?</h2><pre class="codeinput">goalRatio = scoredGoal / concGoalbyTeam;
+whichTeam3 = max(goalRatio) == goalRatio;
+teamID4 = find(whichTeam3, 1, <span class="string">'first'</span>);
+ID(teamID4);
+fprintf(<span class="string">'%s has the best goal ratio'</span>,ID(teamID4))
+</pre><pre class="codeoutput">AFC Bournemouth has the best goal ratio</pre><h2 id="8">Which team has scored the most goals on average?</h2><pre class="codeinput">avGoal = splitapply(@mean, hgoal,G);
+teamID5 = find(max(splitapply(@mean, hgoal,G)) == splitapply(@mean, hgoal,G),1,<span class="string">'first'</span>);
+ID(teamID5);
+fprintf(<span class="string">'%s has scored the most goals on average'</span>,ID(teamID5))
+</pre><pre class="codeoutput">Arsenal has scored the most goals on average</pre><h2 id="9">Conceded the most goals on average?</h2><pre class="codeinput">avGoal2 = splitapply(@mean, vgoal,G);
+teamID6 = find(max(splitapply(@mean, vgoal,G)) == splitapply(@mean, vgoal,G),1,<span class="string">'first'</span>);
+ID(teamID6);
+fprintf(<span class="string">'%s has conceded the most goals on average'</span>,ID(teamID6))
+</pre><pre class="codeoutput">Stockport County has conceded the most goals on average</pre><h2 id="10">Do home teams have an advantage?</h2><p>for this question i will compare avarages of avarage goals</p><pre class="codeinput">mean((splitapply(@mean, hgoal,G))) &gt; mean((splitapply(@mean, vgoal,G)))
+disp(<span class="string">'Avarage goals in home grater than in visit'</span>)
+<span class="comment">% Home teams have an advantage...</span>
+</pre><pre class="codeoutput">
+ans =
+
+  logical
+
+   1
+
+Avarage goals in home grater than in visit
+</pre><h2 id="11">How many games ended as 0:0 draw?</h2><pre class="codeinput">zerozero = (hgoal == 0 &amp; vgoal == 0);
+sum(zerozero);
+fprintf(<span class="string">'%d games ended as 0:0 draw'</span>, sum(zerozero))
+<span class="comment">%3080 games ended as 0:0 draw...</span>
+</pre><pre class="codeoutput">3080 games ended as 0:0 draw</pre><h2 id="12">In how many games one team has scored more than 3 goals?</h2><pre class="codeinput">sum((hgoal &gt; 3 &amp; vgoal &lt;= 3) | (hgoal&lt;=3 &amp; vgoal &gt;3));
+fprintf(<span class="string">'In %d games one team has scored more than 3 goals'</span>, sum((hgoal &gt; 3 &amp; vgoal &lt;= 3) | (hgoal&lt;=3 &amp; vgoal &gt;3)))
+<span class="comment">%3509 games</span>
+</pre><pre class="codeoutput">In 3509 games one team has scored more than 3 goals</pre><h2 id="13">In how many games loosing team has scored more than 3 goals?</h2><pre class="codeinput">sum((hgoal &gt; vgoal) &amp; (vgoal &gt; 3) | (vgoal &gt; hgoal) &amp; (hgoal &gt; 3));
+<span class="comment">%32 games</span>
+fprintf(<span class="string">'In %d games loosing team has scored more than 3 goals'</span>,sum((hgoal &gt; vgoal) &amp; (vgoal &gt;3) | (vgoal &gt; hgoal) &amp; (hgoal &gt; 3)))
+</pre><pre class="codeoutput">In 32 games loosing team has scored more than 3 goals</pre><h2 id="14">Which teams have kept their place in the top division through out all seasons of this millennium ?</h2><p>for this question, i found the intersection the teams in all season</p><pre class="codeinput">data2017 = data(data.Season==2017 &amp; data.division == 1,:);
+[G2017 ID2017] = findgroups(data2017.home);
+
+data2016 = data(data.Season==2016 &amp; data.division == 1,:);
+[G2016 ID2016] = findgroups(data2016.home);
+
+data2015 = data(data.Season==2016 &amp; data.division == 1,:);
+[G2015 ID2015] = findgroups(data2015.home);
+
+data2014 = data(data.Season==2014 &amp; data.division == 1,:);
+[G2014 ID2014] = findgroups(data2014.home);
+
+data2013 = data(data.Season==2013 &amp; data.division == 1,:);
+[G2013 ID2013] = findgroups(data2013.home);
+
+data2012 = data(data.Season==2012 &amp; data.division == 1,:);
+[G2012 ID2012] = findgroups(data2012.home);
+
+data2011 = data(data.Season==2011 &amp; data.division == 1,:);
+[G2011 ID2011] = findgroups(data2011.home);
+
+data2010 = data(data.Season==2010 &amp; data.division == 1,:);
+[G2010 ID2010] = findgroups(data2010.home);
+
+data2009 = data(data.Season==2009 &amp; data.division == 1,:);
+[G2009 ID2009] = findgroups(data2009.home);
+
+data2008 = data(data.Season==2008 &amp; data.division == 1,:);
+[G2008 ID2008] = findgroups(data2008.home);
+
+data2007 = data(data.Season==2007 &amp; data.division == 1,:);
+[G2007 ID2007] = findgroups(data2007.home);
+
+data2006 = data(data.Season==2006 &amp; data.division == 1,:);
+[G2006 ID2006] = findgroups(data2006.home);
+
+data2005 = data(data.Season==2005 &amp; data.division == 1,:);
+[G2005 ID2005] = findgroups(data2005.home);
+
+data2004 = data(data.Season==2004 &amp; data.division == 1,:);
+[G2004 ID2004] = findgroups(data2004.home);
+
+data2003 = data(data.Season==2003 &amp; data.division == 1,:);
+[G2003 ID2003] = findgroups(data2003.home);
+
+data2002 = data(data.Season==2002 &amp; data.division == 1,:);
+[G2002 ID2002] = findgroups(data2002.home);
+
+data2001 = data(data.Season==2001 &amp; data.division == 1,:);
+[G2001 ID2001] = findgroups(data2001.home);
+
+data2000 = data(data.Season==2000 &amp; data.division == 1,:);
+[G2000 ID2000] = findgroups(data2000.home);
+
+a = intersect(intersect(ID2017,ID2016),intersect(ID2015,ID2014));
+b = intersect(intersect(ID2013,ID2012),intersect(ID2011,ID2010));
+c = intersect(intersect(ID2009,ID2008),intersect(ID2007,ID2006));
+d = intersect(intersect(ID2005,ID2004),intersect(ID2003,ID2002));
+ab = intersect(a,b);
+cd = intersect(c,d);
+e = intersect(ab,cd);
+f = intersect(ID2001,ID2000);
+g = intersect(e,f)
+disp(<span class="string">'TEAMS THAT KEPT THEIR PLACE THROUGH OUT ALL SEASON IN THIS MILLENIUM'</span>)
+<span class="comment">% 6 teams</span>
+<span class="comment">%    {'Arsenal'          }</span>
+<span class="comment">%    {'Chelsea'          }</span>
+<span class="comment">%    {'Everton'          }</span>
+<span class="comment">%    {'Liverpool'        }</span>
+<span class="comment">%    {'Manchester United'}</span>
+<span class="comment">%    {'Tottenham Hotspur'}</span>
+</pre><pre class="codeoutput">
+g = 
+
+  6&times;1 string array
+
+    "Arsenal"
+    "Chelsea"
+    "Everton"
+    "Liverpool"
+    "Manchester United"
+    "Tottenham Hotspur"
+
+TEAMS THAT KEPT THEIR PLACE THROUGH OUT ALL SEASON IN THIS MILLENIUM
+</pre><h2 id="15">Plotting by Cumulative goals scored.</h2><pre class="codeinput">ArsenalGoals = 0;
+ArsenalGoals2 = [];
+ArsenalData = data(data.home == <span class="string">'Arsenal'</span> | data.visitor == <span class="string">'Arsenal'</span>,:);
+<span class="keyword">for</span> i = 1:size(ArsenalData.hgoal)
+    <span class="keyword">if</span> ArsenalData.home(i) == <span class="string">'Arsenal'</span>
+        ArsenalGoals = ArsenalGoals + ArsenalData.hgoal(i);
+    <span class="keyword">elseif</span> ArsenalData.visitor(i) == <span class="string">'Arsenal'</span>
+        ArsenalGoals = ArsenalGoals + ArsenalData.vgoal(i);
+    <span class="keyword">end</span>
+    ArsenalGoals2(i) = ArsenalGoals;
+<span class="keyword">end</span>
+
+ChelseaGoals = 0;
+ChelseaGoals2 = [];
+ChelseaData = data(data.home == <span class="string">'Chelsea'</span> | data.visitor == <span class="string">'Chelsea'</span>,:);
+<span class="keyword">for</span> i = 1:size(ChelseaData.hgoal)
+    <span class="keyword">if</span> ChelseaData.home(i) == <span class="string">'Chelsea'</span>
+        ChelseaGoals = ChelseaGoals + ChelseaData.hgoal(i);
+    <span class="keyword">elseif</span> ChelseaData.visitor(i) == <span class="string">'Chelsea'</span>
+        ChelseaGoals = ChelseaGoals + ChelseaData.vgoal(i);
+    <span class="keyword">end</span>
+    ChelseaGoals2(i) = ChelseaGoals;
+<span class="keyword">end</span>
+
+EvertonGoals = 0;
+EvertonGoals2 = [];
+EvertonData = data(data.home == <span class="string">'Everton'</span> | data.visitor == <span class="string">'Everton'</span>,:);
+<span class="keyword">for</span> i = 1:size(EvertonData.hgoal)
+    <span class="keyword">if</span> EvertonData.home(i) == <span class="string">'Everton'</span>
+        EvertonGoals = EvertonGoals + EvertonData.hgoal(i);
+    <span class="keyword">elseif</span> EvertonData.visitor(i) == <span class="string">'Everton'</span>
+        EvertonGoals = EvertonGoals + EvertonData.vgoal(i);
+    <span class="keyword">end</span>
+    EvertonGoals2(i) = EvertonGoals;
+<span class="keyword">end</span>
+
+LiverpoolGoals = 0;
+LiverpoolGoals2 = [];
+LiverpoolData = data(data.home == <span class="string">'Liverpool'</span> | data.visitor == <span class="string">'Liverpool'</span>,:);
+<span class="keyword">for</span> i = 1:size(LiverpoolData.hgoal)
+    <span class="keyword">if</span> LiverpoolData.home(i) == <span class="string">'Liverpool'</span>
+        LiverpoolGoals = LiverpoolGoals + LiverpoolData.hgoal(i);
+    <span class="keyword">elseif</span> LiverpoolData.visitor(i) == <span class="string">'Liverpool'</span>
+        LiverpoolGoals = LiverpoolGoals + LiverpoolData.vgoal(i);
+    <span class="keyword">end</span>
+    LiverpoolGoals2(i) = LiverpoolGoals;
+<span class="keyword">end</span>
+
+MutdGoals = 0;
+MutdGoals2 = [];
+MutdData = data(data.home == <span class="string">'Manchester United'</span> | data.visitor == <span class="string">'Manchester United'</span>,:);
+<span class="keyword">for</span> i = 1:size(MutdData.hgoal)
+    <span class="keyword">if</span> MutdData.home(i) == <span class="string">'Manchester United'</span>
+        MutdGoals = MutdGoals + MutdData.hgoal(i);
+    <span class="keyword">elseif</span> MutdData.visitor(i) == <span class="string">'Manchester United'</span>
+        MutdGoals = MutdGoals + MutdData.vgoal(i);
+    <span class="keyword">end</span>
+    MutdGoals2(i) = MutdGoals;
+<span class="keyword">end</span>
+
+TottGoals = 0;
+TottGoals2 = [];
+TottData = data(data.home == <span class="string">'Tottenham Hotspur'</span> | data.visitor == <span class="string">'Tottenham Hotspur'</span>,:);
+<span class="keyword">for</span> i = 1:size(TottData.hgoal)
+    <span class="keyword">if</span> TottData.home(i) == <span class="string">'Tottenham Hotspur'</span>
+        TottGoals = TottGoals + TottData.hgoal(i);
+    <span class="keyword">elseif</span> TottData.visitor(i) == <span class="string">'Tottenham Hotspur'</span>
+        TottGoals = TottGoals + TottData.vgoal(i);
+    <span class="keyword">end</span>
+    TottGoals2(i) = TottGoals;
+<span class="keyword">end</span>
+
+
+
+figure(1)
+title(<span class="string">'Cumulative goals scored'</span>)
+ylabel(<span class="string">'Goals'</span>)
+hold <span class="string">on</span>;
+plot(1:size(ArsenalData.hgoal), ArsenalGoals2,<span class="string">'k'</span>,<span class="string">'LineWidth'</span>,2)
+plot(1:size(ChelseaData.hgoal), ChelseaGoals2,<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
+plot(1:size(EvertonData.hgoal), EvertonGoals2,<span class="string">'g'</span>,<span class="string">'LineWidth'</span>,2)
+plot(1:size(LiverpoolData.hgoal), LiverpoolGoals2,<span class="string">'y'</span>,<span class="string">'LineWidth'</span>,2)
+plot(1:size(MutdData.hgoal), MutdGoals2,<span class="string">'m'</span>,<span class="string">'LineWidth'</span>,2)
+plot(1:size(TottData.hgoal), MutdGoals2,<span class="string">'b'</span>,<span class="string">'LineWidth'</span>,2)
+legend(<span class="string">'Arsenal'</span>, <span class="string">'Chelsea'</span>, <span class="string">'Everton'</span>, <span class="string">'Liverpool'</span>, <span class="string">'M.United'</span>, <span class="string">'Tottenham'</span>,<span class="string">'LineWidth'</span>,2,<span class="string">'Location'</span>, <span class="string">'SouthEast'</span>)
+
+hold <span class="string">off</span>;
+</pre><img vspace="5" hspace="5" src="main_01.png" alt=""> <h2 id="16">Plotting by Cumulative goals conceded</h2><pre class="codeinput">ArsenalGoalsConc = 0;
+ArsenalGoalsConc2 = [];
+<span class="keyword">for</span> i = 1:size(ArsenalData.hgoal)
+    <span class="keyword">if</span> ArsenalData.home(i) == <span class="string">'Arsenal'</span>
+        ArsenalGoalsConc = ArsenalGoalsConc + ArsenalData.vgoal(i);
+    <span class="keyword">elseif</span> ArsenalData.visitor(i) == <span class="string">'Arsenal'</span>
+        ArsenalGoalsConc = ArsenalGoalsConc + ArsenalData.hgoal(i);
+    <span class="keyword">end</span>
+    ArsenalGoalsConc2(i) = ArsenalGoalsConc;
+<span class="keyword">end</span>
+
+ChelseaGoalsConc = 0;
+ChelseaGoalsConc2 = [];
+<span class="keyword">for</span> i = 1:size(ChelseaData.hgoal)
+    <span class="keyword">if</span> ChelseaData.home(i) == <span class="string">'Chelsea'</span>
+        ChelseaGoalsConc = ChelseaGoalsConc + ChelseaData.vgoal(i);
+    <span class="keyword">elseif</span> ChelseaData.visitor(i) == <span class="string">'Chelsea'</span>
+        ChelseaGoalsConc = ChelseaGoalsConc + ChelseaData.hgoal(i);
+    <span class="keyword">end</span>
+    ChelseaGoalsConc2(i) = ChelseaGoalsConc;
+<span class="keyword">end</span>
+
+EvertonGoalsConc = 0;
+EvertonGoalsConc2 = [];
+<span class="keyword">for</span> i = 1:size(EvertonData.hgoal)
+    <span class="keyword">if</span> EvertonData.home(i) == <span class="string">'Everton'</span>
+        EvertonGoalsConc = EvertonGoalsConc + EvertonData.vgoal(i);
+    <span class="keyword">elseif</span> EvertonData.visitor(i) == <span class="string">'Everton'</span>
+        EvertonGoalsConc = EvertonGoalsConc + EvertonData.hgoal(i);
+    <span class="keyword">end</span>
+    EvertonGoalsConc2(i) = EvertonGoalsConc;
+<span class="keyword">end</span>
+
+LiverpoolGoalsConc = 0;
+LiverpoolGoalsConc2 = [];
+<span class="keyword">for</span> i = 1:size(LiverpoolData.hgoal)
+    <span class="keyword">if</span> LiverpoolData.home(i) == <span class="string">'Liverpool'</span>
+        LiverpoolGoalsConc = LiverpoolGoalsConc + LiverpoolData.vgoal(i);
+    <span class="keyword">elseif</span> LiverpoolData.visitor(i) == <span class="string">'Liverpool'</span>
+        LiverpoolGoalsConc = LiverpoolGoalsConc + LiverpoolData.hgoal(i);
+    <span class="keyword">end</span>
+    LiverpoolGoalsConc2(i) = LiverpoolGoalsConc;
+<span class="keyword">end</span>
+
+MutdGoalsConc = 0;
+MutdGoalsConc2 = [];
+<span class="keyword">for</span> i = 1:size(MutdData.hgoal)
+    <span class="keyword">if</span> MutdData.home(i) == <span class="string">'Manchester United'</span>
+        MutdGoalsConc = MutdGoalsConc + MutdData.vgoal(i);
+    <span class="keyword">elseif</span> MutdData.visitor(i) == <span class="string">'Manchester United'</span>
+        MutdGoalsConc = MutdGoalsConc + MutdData.hgoal(i);
+    <span class="keyword">end</span>
+    MutdGoalsConc2(i) = MutdGoalsConc;
+<span class="keyword">end</span>
+
+TottGoalsConc = 0;
+TottGoalsConc2 = [];
+<span class="keyword">for</span> i = 1:size(TottData.hgoal)
+    <span class="keyword">if</span> TottData.home(i) == <span class="string">'Tottenham Hotspur'</span>
+        TottGoalsConc = TottGoalsConc + TottData.vgoal(i);
+    <span class="keyword">elseif</span> TottData.visitor(i) == <span class="string">'Tottenham Hotspur'</span>
+        TottGoalsConc = TottGoalsConc + TottData.hgoal(i);
+    <span class="keyword">end</span>
+    TottGoalsConc2(i) = TottGoalsConc;
+<span class="keyword">end</span>
+figure(2)
+ylabel(<span class="string">'Goals'</span>)
+title(<span class="string">'Plotting by Cumulative goals conceded'</span>)
+hold <span class="string">on</span>;
+plot(1:size(ArsenalData.hgoal), ArsenalGoalsConc2,<span class="string">'k'</span>,<span class="string">'LineWidth'</span>,2)
+plot(1:size(ChelseaData.hgoal), ChelseaGoalsConc2,<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
+plot(1:size(EvertonData.hgoal), EvertonGoalsConc2,<span class="string">'g'</span>,<span class="string">'LineWidth'</span>,2)
+plot(1:size(LiverpoolData.hgoal), LiverpoolGoalsConc2,<span class="string">'m'</span>,<span class="string">'LineWidth'</span>,2)
+plot(1:size(MutdData.hgoal), MutdGoalsConc2,<span class="string">'b'</span>,<span class="string">'LineWidth'</span>,2)
+plot(1:size(TottData.hgoal), TottGoalsConc2,<span class="string">'y'</span>,<span class="string">'LineWidth'</span>,2)
+legend(<span class="string">'Arsenal'</span>, <span class="string">'Chelsea'</span>, <span class="string">'Everton'</span>, <span class="string">'Liverpool'</span>, <span class="string">'M. United'</span>, <span class="string">'Tottenham'</span>)
+hold <span class="string">off</span>;
+</pre><img vspace="5" hspace="5" src="main_02.png" alt=""> <h2 id="17">Plotting by Cumulative goal differential.</h2><pre class="codeinput">ArsenalGdiff = ArsenalGoals2 - ArsenalGoalsConc2;
+ChelseaGdiff = ChelseaGoals2 - ChelseaGoalsConc2;
+EvertonGdiff = EvertonGoals2 - EvertonGoalsConc2;
+LiverpoolGdiff = LiverpoolGoals2 - LiverpoolGoalsConc2;
+MutdGdiff = MutdGoals2 - MutdGoalsConc2;
+TottGdiff = TottGoals2 - TottGoalsConc2;
+figure(3)
+ylabel(<span class="string">'Goal Differential'</span>)
+hold <span class="string">on</span>;
+plot(1:size(transpose(ArsenalGdiff)), ArsenalGdiff,<span class="string">'LineWidth'</span>,2)
+plot(1:size(transpose(ChelseaGdiff)), ChelseaGdiff,<span class="string">'LineWidth'</span>,2)
+plot(1:size(transpose(EvertonGdiff)), EvertonGdiff,<span class="string">'LineWidth'</span>,2)
+plot(1:size(transpose(LiverpoolGdiff)), LiverpoolGdiff,<span class="string">'LineWidth'</span>,2)
+plot(1:size(transpose(MutdGdiff)), MutdGdiff,<span class="string">'LineWidth'</span>,2)
+plot(1:size(transpose(TottGdiff)), TottGdiff,<span class="string">'LineWidth'</span>,2)
+legend(<span class="string">'Arsenal'</span>, <span class="string">'Chelsea'</span>, <span class="string">'Everton'</span>, <span class="string">'Liverpool'</span>, <span class="string">'M. United'</span>, <span class="string">'Tottenham'</span>,<span class="string">'Location'</span>,<span class="string">'NorthWest'</span>)
+hold <span class="string">off</span>;
+</pre><img vspace="5" hspace="5" src="main_03.png" alt=""> <img vspace="5" hspace="5" src="main_04.png" alt=""> <h2 id="18">How would the last season&#8217;s final table change if we would use a different scoring method?</h2><pre class="codeinput"><span class="comment">% ScoreTable in 2017</span>
+points = zeros(20,1);
+scoreTable = table(points,<span class="string">'RowNames'</span>, ID2017);
+
+<span class="keyword">for</span> i = 1:size(data2017.home)
+    <span class="keyword">if</span> data2017.goaldif(i) &gt; 0
+        scoreTable{data2017.home(i),<span class="string">'points'</span>} = scoreTable{data2017.home(i),<span class="string">'points'</span>} +3;
+    <span class="keyword">elseif</span> data2017.goaldif(i) == 0
+        scoreTable{data2017.home(i),<span class="string">'points'</span>} = scoreTable{data2017.home(i),<span class="string">'points'</span>} + 1;
+        scoreTable{data2017.visitor(i),<span class="string">'points'</span> } = scoreTable{data2017.visitor(i),<span class="string">'points'</span> } + 1;
+    <span class="keyword">elseif</span> data2017.goaldif(i) &lt; 0
+        scoreTable{data2017.visitor(i),<span class="string">'points'</span>} = scoreTable{data2017.visitor(i),<span class="string">'points'</span>} +3;
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+disp(<span class="string">'CURRENT SCORE TABLE'</span>)
+scoreTable = sortrows(scoreTable) <span class="comment">% Current score Table</span>
+
+<span class="comment">% What if we change the scoring method ?</span>
+
+points2 = zeros(20,1);
+scoreTableNew = table(points,<span class="string">'RowNames'</span>, ID2017);
+
+<span class="keyword">for</span> i = 1:size(data2017.home)
+    <span class="keyword">if</span> data2017.goaldif(i) &gt; 0
+        scoreTableNew{data2017.home(i),<span class="string">'points'</span>} = scoreTableNew{data2017.home(i),<span class="string">'points'</span>} + 10 + data2017.totgoal(i);
+        scoreTableNew{data2017.visitor(i),<span class="string">'points'</span>} = scoreTableNew{data2017.home(i),<span class="string">'points'</span>} + 1 - data2017.totgoal(i);
+    <span class="keyword">elseif</span> data2017.goaldif(i) == 0
+        scoreTableNew{data2017.home(i),<span class="string">'points'</span>} = scoreTableNew{data2017.home(i),<span class="string">'points'</span>} + 3 + data2017.totgoal(i);
+        scoreTableNew{data2017.visitor(i),<span class="string">'points'</span> } = scoreTableNew{data2017.visitor(i),<span class="string">'points'</span> } + 3 + data2017.totgoal(i);
+    <span class="keyword">elseif</span> data2017.goaldif(i) &lt; 0
+        scoreTableNew{data2017.visitor(i),<span class="string">'points'</span>} = scoreTableNew{data2017.visitor(i),<span class="string">'points'</span>} + 10 + data2017.totgoal(i);
+        scoreTableNew{data2017.home(i),<span class="string">'points'</span>} = scoreTableNew{data2017.home(i),<span class="string">'points'</span>} + 1 - data2017.totgoal(i);
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+disp(<span class="string">'NEW METHOD SCORE TABLE'</span>)
+scoreTableNew = sortrows(scoreTableNew)
+</pre><pre class="codeoutput">CURRENT SCORE TABLE
+
+scoreTable =
+
+  20&times;1 table
+
+                              points
+                              ______
+
+    West Bromwich Albion        31  
+    Stoke City                  33  
+    Swansea City                33  
+    Southampton                 36  
+    Huddersfield Town           37  
+    Brighton &amp; Hove Albion      40  
+    Watford                     41  
+    West Ham United             42  
+    AFC Bournemouth             44  
+    Crystal Palace              44  
+    Newcastle United            44  
+    Leicester City              47  
+    Everton                     49  
+    Burnley                     54  
+    Arsenal                     63  
+    Chelsea                     70  
+    Liverpool                   75  
+    Tottenham Hotspur           77  
+    Manchester United           81  
+    Manchester City            100  
+
+NEW METHOD SCORE TABLE
+
+scoreTableNew =
+
+  20&times;1 table
+
+                              points
+                              ______
+
+    Huddersfield Town          332  
+    Stoke City                 344  
+    Swansea City               354  
+    Southampton                363  
+    Everton                    366  
+    AFC Bournemouth            369  
+    West Ham United            369  
+    Burnley                    372  
+    Manchester United          384  
+    Watford                    384  
+    Brighton &amp; Hove Albion     388  
+    Arsenal                    390  
+    Liverpool                  391  
+    West Bromwich Albion       397  
+    Crystal Palace             398  
+    Manchester City            406  
+    Chelsea                    420  
+    Leicester City             420  
+    Newcastle United           422  
+    Tottenham Hotspur          428  
+
+</pre><img vspace="5" hspace="5" src="main_05.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+% This program answers the questions for Task4 in ETS2 
+% Author : Serhat Aydogdu
+% Task: 4
+
+clear all;
+
+
+allData = dataset('xlsfile','england.csv');
+% Selecting the games after the year of 2000
+data = allData(159429:198816,1:12);
+data.division = str2double(data.division);
+data.home = string(data.home);
+data.visitor = string(data.visitor);
+
+%% Which game was the top scoring game?
+maxgoal = max(data.totgoal); % to see max total goals among all the games
+% max goal is 11
+% determine the place of the game that has 11 goals total
+goalsTotal = maxgoal == data.totgoal;
+whichGame = find(goalsTotal,1,'first');
+disp('Which game was the top scoring game?')
+fprintf('%s vs %s in %d', data.home(whichGame),data.visitor(whichGame), data.Season(whichGame))
+data(whichGame,:);
+
+%% How many unique teams has played games ?
+
+totalTeams = max(findgroups(data.home))% number of teams played;
+fprintf('%d teams played', totalTeams)
+
+%% Which team has scored the most goals?
+
+data2 = data(:,{'home', 'hgoal'});
+hgoal = data2.hgoal;
+home = data2.home;
+[G ,ID] = findgroups(home);
+scoredGoal = splitapply(@sum, hgoal,G);
+seekformax = max(scoredGoal) == scoredGoal;
+teamID = find(seekformax, 1, 'first')
+ID(teamID); % the Team scored most goals
+fprintf('%s has scored the most goals', ID(teamID))
+%%  Conceded the most goals?
+
+vgoal = data.vgoal;
+[G2 ID2] = findgroups(home);
+concGoalbyTeam = splitapply(@sum, vgoal,G);
+whichTeam = max(concGoalbyTeam) == splitapply(@sum, vgoal,G);
+teamID2 = find(whichTeam,1,'first');
+ID2(teamID2); % the team conceded the most goals
+fprintf('%s conceded the most goals', ID2(teamID2))
+
+%% Has the best goal differential (scored minus conceded)
+
+goalDifferential = concGoalbyTeam - scoredGoal;
+whichTeam2 = max(goalDifferential) == goalDifferential;
+teamID3 = find(whichTeam2, 1, 'first');
+ID(teamID3);
+fprintf('%s has the best goal differential',ID(teamID3))
+
+%%  Has the best goal ratio (scored divided by conceded)?
+
+goalRatio = scoredGoal / concGoalbyTeam;
+whichTeam3 = max(goalRatio) == goalRatio;
+teamID4 = find(whichTeam3, 1, 'first');
+ID(teamID4);
+fprintf('%s has the best goal ratio',ID(teamID4))
+
+%% Which team has scored the most goals on average? 
+avGoal = splitapply(@mean, hgoal,G);
+teamID5 = find(max(splitapply(@mean, hgoal,G)) == splitapply(@mean, hgoal,G),1,'first');
+ID(teamID5);
+fprintf('%s has scored the most goals on average',ID(teamID5))
+%% Conceded the most goals on average?
+avGoal2 = splitapply(@mean, vgoal,G);
+teamID6 = find(max(splitapply(@mean, vgoal,G)) == splitapply(@mean, vgoal,G),1,'first');
+ID(teamID6);
+fprintf('%s has conceded the most goals on average',ID(teamID6))
+
+
+%% Do home teams have an advantage?
+% for this question i will compare avarages of avarage goals
+
+mean((splitapply(@mean, hgoal,G))) > mean((splitapply(@mean, vgoal,G)))
+disp('Avarage goals in home grater than in visit')
+% Home teams have an advantage...
+
+%%  How many games ended as 0:0 draw? 
+
+zerozero = (hgoal == 0 & vgoal == 0);
+sum(zerozero);
+fprintf('%d games ended as 0:0 draw', sum(zerozero))
+%3080 games ended as 0:0 draw...
+
+%% In how many games one team has scored more than 3 goals?
+
+sum((hgoal > 3 & vgoal <= 3) | (hgoal<=3 & vgoal >3));
+fprintf('In %d games one team has scored more than 3 goals', sum((hgoal > 3 & vgoal <= 3) | (hgoal<=3 & vgoal >3)))
+%3509 games
+
+%% In how many games loosing team has scored more than 3 goals?
+
+sum((hgoal > vgoal) & (vgoal > 3) | (vgoal > hgoal) & (hgoal > 3));
+%32 games
+fprintf('In %d games loosing team has scored more than 3 goals',sum((hgoal > vgoal) & (vgoal >3) | (vgoal > hgoal) & (hgoal > 3)))
+
+%% Which teams have kept their place in the top division through out all seasons of this millennium ?
+% for this question, i found the intersection the teams in all season
+data2017 = data(data.Season==2017 & data.division == 1,:);
+[G2017 ID2017] = findgroups(data2017.home);
+
+data2016 = data(data.Season==2016 & data.division == 1,:);
+[G2016 ID2016] = findgroups(data2016.home);
+
+data2015 = data(data.Season==2016 & data.division == 1,:);
+[G2015 ID2015] = findgroups(data2015.home);
+
+data2014 = data(data.Season==2014 & data.division == 1,:);
+[G2014 ID2014] = findgroups(data2014.home);
+
+data2013 = data(data.Season==2013 & data.division == 1,:);
+[G2013 ID2013] = findgroups(data2013.home);
+
+data2012 = data(data.Season==2012 & data.division == 1,:);
+[G2012 ID2012] = findgroups(data2012.home);
+
+data2011 = data(data.Season==2011 & data.division == 1,:);
+[G2011 ID2011] = findgroups(data2011.home);
+
+data2010 = data(data.Season==2010 & data.division == 1,:);
+[G2010 ID2010] = findgroups(data2010.home);
+
+data2009 = data(data.Season==2009 & data.division == 1,:);
+[G2009 ID2009] = findgroups(data2009.home);
+
+data2008 = data(data.Season==2008 & data.division == 1,:);
+[G2008 ID2008] = findgroups(data2008.home);
+
+data2007 = data(data.Season==2007 & data.division == 1,:);
+[G2007 ID2007] = findgroups(data2007.home);
+
+data2006 = data(data.Season==2006 & data.division == 1,:);
+[G2006 ID2006] = findgroups(data2006.home);
+
+data2005 = data(data.Season==2005 & data.division == 1,:);
+[G2005 ID2005] = findgroups(data2005.home);
+
+data2004 = data(data.Season==2004 & data.division == 1,:);
+[G2004 ID2004] = findgroups(data2004.home);
+
+data2003 = data(data.Season==2003 & data.division == 1,:);
+[G2003 ID2003] = findgroups(data2003.home);
+
+data2002 = data(data.Season==2002 & data.division == 1,:);
+[G2002 ID2002] = findgroups(data2002.home);
+
+data2001 = data(data.Season==2001 & data.division == 1,:);
+[G2001 ID2001] = findgroups(data2001.home);
+
+data2000 = data(data.Season==2000 & data.division == 1,:);
+[G2000 ID2000] = findgroups(data2000.home);
+
+a = intersect(intersect(ID2017,ID2016),intersect(ID2015,ID2014));
+b = intersect(intersect(ID2013,ID2012),intersect(ID2011,ID2010));
+c = intersect(intersect(ID2009,ID2008),intersect(ID2007,ID2006));
+d = intersect(intersect(ID2005,ID2004),intersect(ID2003,ID2002));
+ab = intersect(a,b);
+cd = intersect(c,d);
+e = intersect(ab,cd);
+f = intersect(ID2001,ID2000);
+g = intersect(e,f)
+disp('TEAMS THAT KEPT THEIR PLACE THROUGH OUT ALL SEASON IN THIS MILLENIUM')
+% 6 teams
+%    {'Arsenal'          }
+%    {'Chelsea'          }
+%    {'Everton'          }
+%    {'Liverpool'        }
+%    {'Manchester United'}
+%    {'Tottenham Hotspur'}
+
+%% Plotting by Cumulative goals scored.
+
+ArsenalGoals = 0;
+ArsenalGoals2 = [];
+ArsenalData = data(data.home == 'Arsenal' | data.visitor == 'Arsenal',:);
+for i = 1:size(ArsenalData.hgoal)
+    if ArsenalData.home(i) == 'Arsenal'
+        ArsenalGoals = ArsenalGoals + ArsenalData.hgoal(i);
+    elseif ArsenalData.visitor(i) == 'Arsenal'
+        ArsenalGoals = ArsenalGoals + ArsenalData.vgoal(i);
+    end
+    ArsenalGoals2(i) = ArsenalGoals;
+end
+
+ChelseaGoals = 0;
+ChelseaGoals2 = [];
+ChelseaData = data(data.home == 'Chelsea' | data.visitor == 'Chelsea',:);
+for i = 1:size(ChelseaData.hgoal)
+    if ChelseaData.home(i) == 'Chelsea'
+        ChelseaGoals = ChelseaGoals + ChelseaData.hgoal(i);
+    elseif ChelseaData.visitor(i) == 'Chelsea'
+        ChelseaGoals = ChelseaGoals + ChelseaData.vgoal(i);
+    end
+    ChelseaGoals2(i) = ChelseaGoals;
+end
+
+EvertonGoals = 0;
+EvertonGoals2 = [];
+EvertonData = data(data.home == 'Everton' | data.visitor == 'Everton',:);
+for i = 1:size(EvertonData.hgoal)
+    if EvertonData.home(i) == 'Everton'
+        EvertonGoals = EvertonGoals + EvertonData.hgoal(i);
+    elseif EvertonData.visitor(i) == 'Everton'
+        EvertonGoals = EvertonGoals + EvertonData.vgoal(i);
+    end
+    EvertonGoals2(i) = EvertonGoals;
+end
+
+LiverpoolGoals = 0;
+LiverpoolGoals2 = [];
+LiverpoolData = data(data.home == 'Liverpool' | data.visitor == 'Liverpool',:);
+for i = 1:size(LiverpoolData.hgoal)
+    if LiverpoolData.home(i) == 'Liverpool'
+        LiverpoolGoals = LiverpoolGoals + LiverpoolData.hgoal(i);
+    elseif LiverpoolData.visitor(i) == 'Liverpool'
+        LiverpoolGoals = LiverpoolGoals + LiverpoolData.vgoal(i);
+    end
+    LiverpoolGoals2(i) = LiverpoolGoals;
+end
+
+MutdGoals = 0;
+MutdGoals2 = [];
+MutdData = data(data.home == 'Manchester United' | data.visitor == 'Manchester United',:);
+for i = 1:size(MutdData.hgoal)
+    if MutdData.home(i) == 'Manchester United'
+        MutdGoals = MutdGoals + MutdData.hgoal(i);
+    elseif MutdData.visitor(i) == 'Manchester United'
+        MutdGoals = MutdGoals + MutdData.vgoal(i);
+    end
+    MutdGoals2(i) = MutdGoals;
+end
+
+TottGoals = 0;
+TottGoals2 = [];
+TottData = data(data.home == 'Tottenham Hotspur' | data.visitor == 'Tottenham Hotspur',:);
+for i = 1:size(TottData.hgoal)
+    if TottData.home(i) == 'Tottenham Hotspur'
+        TottGoals = TottGoals + TottData.hgoal(i);
+    elseif TottData.visitor(i) == 'Tottenham Hotspur'
+        TottGoals = TottGoals + TottData.vgoal(i);
+    end
+    TottGoals2(i) = TottGoals;
+end
+
+
+
+figure(1)
+title('Cumulative goals scored')
+ylabel('Goals')
+hold on;
+plot(1:size(ArsenalData.hgoal), ArsenalGoals2,'k','LineWidth',2)
+plot(1:size(ChelseaData.hgoal), ChelseaGoals2,'r','LineWidth',2)
+plot(1:size(EvertonData.hgoal), EvertonGoals2,'g','LineWidth',2)
+plot(1:size(LiverpoolData.hgoal), LiverpoolGoals2,'y','LineWidth',2)
+plot(1:size(MutdData.hgoal), MutdGoals2,'m','LineWidth',2)
+plot(1:size(TottData.hgoal), MutdGoals2,'b','LineWidth',2)
+legend('Arsenal', 'Chelsea', 'Everton', 'Liverpool', 'M.United', 'Tottenham','LineWidth',2,'Location', 'SouthEast')
+
+hold off;
+
+%% Plotting by Cumulative goals conceded
+
+
+ArsenalGoalsConc = 0;
+ArsenalGoalsConc2 = [];
+for i = 1:size(ArsenalData.hgoal)
+    if ArsenalData.home(i) == 'Arsenal'
+        ArsenalGoalsConc = ArsenalGoalsConc + ArsenalData.vgoal(i);
+    elseif ArsenalData.visitor(i) == 'Arsenal'
+        ArsenalGoalsConc = ArsenalGoalsConc + ArsenalData.hgoal(i);
+    end
+    ArsenalGoalsConc2(i) = ArsenalGoalsConc;
+end
+
+ChelseaGoalsConc = 0;
+ChelseaGoalsConc2 = [];
+for i = 1:size(ChelseaData.hgoal)
+    if ChelseaData.home(i) == 'Chelsea'
+        ChelseaGoalsConc = ChelseaGoalsConc + ChelseaData.vgoal(i);
+    elseif ChelseaData.visitor(i) == 'Chelsea'
+        ChelseaGoalsConc = ChelseaGoalsConc + ChelseaData.hgoal(i);
+    end
+    ChelseaGoalsConc2(i) = ChelseaGoalsConc;
+end
+
+EvertonGoalsConc = 0;
+EvertonGoalsConc2 = [];
+for i = 1:size(EvertonData.hgoal)
+    if EvertonData.home(i) == 'Everton'
+        EvertonGoalsConc = EvertonGoalsConc + EvertonData.vgoal(i);
+    elseif EvertonData.visitor(i) == 'Everton'
+        EvertonGoalsConc = EvertonGoalsConc + EvertonData.hgoal(i);
+    end
+    EvertonGoalsConc2(i) = EvertonGoalsConc;
+end
+
+LiverpoolGoalsConc = 0;
+LiverpoolGoalsConc2 = [];
+for i = 1:size(LiverpoolData.hgoal)
+    if LiverpoolData.home(i) == 'Liverpool'
+        LiverpoolGoalsConc = LiverpoolGoalsConc + LiverpoolData.vgoal(i);
+    elseif LiverpoolData.visitor(i) == 'Liverpool'
+        LiverpoolGoalsConc = LiverpoolGoalsConc + LiverpoolData.hgoal(i);
+    end
+    LiverpoolGoalsConc2(i) = LiverpoolGoalsConc;
+end
+
+MutdGoalsConc = 0;
+MutdGoalsConc2 = [];
+for i = 1:size(MutdData.hgoal)
+    if MutdData.home(i) == 'Manchester United'
+        MutdGoalsConc = MutdGoalsConc + MutdData.vgoal(i);
+    elseif MutdData.visitor(i) == 'Manchester United'
+        MutdGoalsConc = MutdGoalsConc + MutdData.hgoal(i);
+    end
+    MutdGoalsConc2(i) = MutdGoalsConc;
+end
+
+TottGoalsConc = 0;
+TottGoalsConc2 = [];
+for i = 1:size(TottData.hgoal)
+    if TottData.home(i) == 'Tottenham Hotspur'
+        TottGoalsConc = TottGoalsConc + TottData.vgoal(i);
+    elseif TottData.visitor(i) == 'Tottenham Hotspur'
+        TottGoalsConc = TottGoalsConc + TottData.hgoal(i);
+    end
+    TottGoalsConc2(i) = TottGoalsConc;
+end
+figure(2)
+ylabel('Goals')
+title('Plotting by Cumulative goals conceded')
+hold on;
+plot(1:size(ArsenalData.hgoal), ArsenalGoalsConc2,'k','LineWidth',2)
+plot(1:size(ChelseaData.hgoal), ChelseaGoalsConc2,'r','LineWidth',2)
+plot(1:size(EvertonData.hgoal), EvertonGoalsConc2,'g','LineWidth',2)
+plot(1:size(LiverpoolData.hgoal), LiverpoolGoalsConc2,'m','LineWidth',2)
+plot(1:size(MutdData.hgoal), MutdGoalsConc2,'b','LineWidth',2)
+plot(1:size(TottData.hgoal), TottGoalsConc2,'y','LineWidth',2)
+legend('Arsenal', 'Chelsea', 'Everton', 'Liverpool', 'M. United', 'Tottenham')
+hold off;
+%% Plotting by Cumulative goal differential.
+ArsenalGdiff = ArsenalGoals2 - ArsenalGoalsConc2;
+ChelseaGdiff = ChelseaGoals2 - ChelseaGoalsConc2;
+EvertonGdiff = EvertonGoals2 - EvertonGoalsConc2;
+LiverpoolGdiff = LiverpoolGoals2 - LiverpoolGoalsConc2;
+MutdGdiff = MutdGoals2 - MutdGoalsConc2;
+TottGdiff = TottGoals2 - TottGoalsConc2;
+figure(3)
+ylabel('Goal Differential')
+hold on;
+plot(1:size(transpose(ArsenalGdiff)), ArsenalGdiff,'LineWidth',2)
+plot(1:size(transpose(ChelseaGdiff)), ChelseaGdiff,'LineWidth',2)
+plot(1:size(transpose(EvertonGdiff)), EvertonGdiff,'LineWidth',2)
+plot(1:size(transpose(LiverpoolGdiff)), LiverpoolGdiff,'LineWidth',2)
+plot(1:size(transpose(MutdGdiff)), MutdGdiff,'LineWidth',2)
+plot(1:size(transpose(TottGdiff)), TottGdiff,'LineWidth',2)
+legend('Arsenal', 'Chelsea', 'Everton', 'Liverpool', 'M. United', 'Tottenham','Location','NorthWest')
+hold off;
+
+%% How would the last season’s final table change if we would use a different scoring method?
+
+% ScoreTable in 2017
+points = zeros(20,1);
+scoreTable = table(points,'RowNames', ID2017);
+
+for i = 1:size(data2017.home)
+    if data2017.goaldif(i) > 0
+        scoreTable{data2017.home(i),'points'} = scoreTable{data2017.home(i),'points'} +3;
+    elseif data2017.goaldif(i) == 0
+        scoreTable{data2017.home(i),'points'} = scoreTable{data2017.home(i),'points'} + 1;
+        scoreTable{data2017.visitor(i),'points' } = scoreTable{data2017.visitor(i),'points' } + 1;
+    elseif data2017.goaldif(i) < 0
+        scoreTable{data2017.visitor(i),'points'} = scoreTable{data2017.visitor(i),'points'} +3;
+    end
+end
+disp('CURRENT SCORE TABLE')
+scoreTable = sortrows(scoreTable) % Current score Table
+
+% What if we change the scoring method ? 
+
+points2 = zeros(20,1);
+scoreTableNew = table(points,'RowNames', ID2017);
+
+for i = 1:size(data2017.home)
+    if data2017.goaldif(i) > 0
+        scoreTableNew{data2017.home(i),'points'} = scoreTableNew{data2017.home(i),'points'} + 10 + data2017.totgoal(i);
+        scoreTableNew{data2017.visitor(i),'points'} = scoreTableNew{data2017.home(i),'points'} + 1 - data2017.totgoal(i);
+    elseif data2017.goaldif(i) == 0
+        scoreTableNew{data2017.home(i),'points'} = scoreTableNew{data2017.home(i),'points'} + 3 + data2017.totgoal(i);
+        scoreTableNew{data2017.visitor(i),'points' } = scoreTableNew{data2017.visitor(i),'points' } + 3 + data2017.totgoal(i);
+    elseif data2017.goaldif(i) < 0
+        scoreTableNew{data2017.visitor(i),'points'} = scoreTableNew{data2017.visitor(i),'points'} + 10 + data2017.totgoal(i);
+        scoreTableNew{data2017.home(i),'points'} = scoreTableNew{data2017.home(i),'points'} + 1 - data2017.totgoal(i);
+    end
+end
+disp('NEW METHOD SCORE TABLE')
+scoreTableNew = sortrows(scoreTableNew)
+ 
+##### SOURCE END #####
+--></body></html>

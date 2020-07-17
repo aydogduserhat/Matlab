@@ -1,0 +1,157 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>main</title><meta name="generator" content="MATLAB 9.8"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-05-22"><meta name="DC.source" content="main.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Lets check x = 4 and y = 2 satifying the equation</a></li></ul></div><pre class="codeinput"><span class="comment">% This scripts solves linear equations created for building Dinas Zauras</span>
+<span class="comment">% problem</span>
+<span class="comment">%</span>
+<span class="comment">% Author: Serhat Aydogdu</span>
+<span class="comment">%</span>
+<span class="comment">% Task: 1/ETS-3</span>
+
+clear <span class="string">all</span>;
+<span class="comment">% We are going to shop to buy Flamethrowers and Car engines.</span>
+<span class="comment">% Flamethrowers cost 3000 Eur/piece, can be carried by a single person</span>
+<span class="comment">% Car engines cost 2500 Eur/piece, can be carried by four people</span>
+<span class="comment">% We are 12 people including 11 helpers</span>
+<span class="comment">% Our first goal is to spend as much money as we can.</span>
+clear <span class="string">all</span>;
+<span class="comment">% Our second goal is all the helpers to carry an item.</span>
+<span class="comment">%</span>
+<span class="comment">% Here is the equation.</span>
+A = [3000 2500; 1 4];
+b = [17500.71; 12];
+x = inv(A)*b;
+x2 = rref([A b]);
+fprintf(<span class="string">'According to  solution by using Linear Algrebra x = %f y = %f \n'</span>, x(1),x(2))
+fprintf(<span class="string">'According to Gauss Jordan Elimination method x = %f , y = %f \n'</span>,x2(1,3),x2(2,3))
+<span class="comment">% the values are same in 2 different ways.</span>
+<span class="comment">% x and y values should be an integer</span>
+x(1) = round(x(1));
+x(2) = round(x(2));
+
+<span class="comment">% x = 4 &amp; y = 2 is the solution of this linear equation</span>
+</pre><pre class="codeoutput">According to  solution by using Linear Algrebra x = 4.210825 y = 1.947294 
+According to Gauss Jordan Elimination method x = 4.210825 , y = 1.947294 
+</pre><h2 id="2">Lets check x = 4 and y = 2 satifying the equation</h2><pre class="codeinput">s = A*x - b
+<span class="comment">%</span>
+</pre><pre class="codeoutput">
+s =
+
+ -500.7100
+         0
+
+</pre><p>they satisfy the second equality which means everybody has something to carry however, We could not spent all money, we have some remained</p><pre class="codeinput"><span class="comment">% Here is our remaining money.</span>
+fprintf(<span class="string">'Our remaming money is %.2f euro  '</span>, abs(s(1)))
+</pre><pre class="codeoutput">Our remaming money is 500.71 euro  </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+% This scripts solves linear equations created for building Dinas Zauras
+% problem
+%
+% Author: Serhat Aydogdu
+% 
+% Task: 1/ETS-3
+
+clear all;
+% We are going to shop to buy Flamethrowers and Car engines.
+% Flamethrowers cost 3000 Eur/piece, can be carried by a single person
+% Car engines cost 2500 Eur/piece, can be carried by four people
+% We are 12 people including 11 helpers
+% Our first goal is to spend as much money as we can.
+clear all;
+% Our second goal is all the helpers to carry an item.
+%
+% Here is the equation.
+A = [3000 2500; 1 4];
+b = [17500.71; 12];
+x = inv(A)*b;
+x2 = rref([A b]);
+fprintf('According to  solution by using Linear Algrebra x = %f y = %f \n', x(1),x(2))
+fprintf('According to Gauss Jordan Elimination method x = %f , y = %f \n',x2(1,3),x2(2,3))
+% the values are same in 2 different ways.
+% x and y values should be an integer
+x(1) = round(x(1));
+x(2) = round(x(2));
+
+% x = 4 & y = 2 is the solution of this linear equation
+
+%% Lets check x = 4 and y = 2 satifying the equation
+s = A*x - b
+%
+%% 
+% they satisfy the second equality which means everybody has something to
+% carry
+% however, We could not spent all money, we have some remained
+
+% Here is our remaining money.
+fprintf('Our remaming money is %.2f euro  ', abs(s(1)))
+
+
+
+##### SOURCE END #####
+--></body></html>
