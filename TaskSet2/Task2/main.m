@@ -72,9 +72,4 @@ for sigma = sigma
     
 end
 hold off;
-% I couldn't put all the sigma values onto plot.
-
-%% Mean and standart deviation thing. not completed yet......
-
-
 
